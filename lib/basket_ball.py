@@ -1,3 +1,6 @@
+
+import ipdb;
+
 def game_dict():
     return {
         "home": {
@@ -182,3 +185,127 @@ def game_dict():
             ]
         }
     }
+
+def players_method():
+    for key in game_dict():
+        return game_dict()[key]["players"]
+
+def num_points_per_game(player):
+    for key in game_dict():
+        players = game_dict()[key]["players"]
+        for game_object_player in players:
+            if player == game_object_player["name"]:
+                return game_object_player["points_per_game"]
+
+
+def player_age(player):
+    # for game_object_player in players():
+    #     if game_object_player == player:
+    #         return game_object_player['age']
+    for key in game_dict():
+        players = game_dict()[key]["players"]
+        for game_player in players:
+            if player == game_player["name"]:
+                return game_player["age"]
+
+    
+
+def team_colors(team):
+    for key in game_dict():
+        team_object = game_dict()[key]
+        if team_object["team_name"] == team:
+            return team_object['colors']
+    
+
+def team_names():
+    t = []
+    for key in game_dict():
+        teams = game_dict()[key]
+        t.append(teams['team_name'])
+    return t
+    
+
+def player_numbers(team):
+    list_numbers = []
+    for key in game_dict():
+        team_object = game_dict()[key]['team_name']
+        if team_object == team:
+            for player in game_dict()[key]['players']:
+                list_numbers.append(player['number'])
+    return list_numbers            
+    
+
+def player_stats(player):
+    for key in game_dict():
+        team = game_dict()[key]
+        for player_object in team['players']:
+            if player_object['name'] == player:
+                return player_object
+    
+
+def average_rebounds_by_shoe_brand():
+    brands = {}
+    for key in game_dict():
+        team = game_dict()[key]
+        for player_object in team['players']:
+            if (player_object['shoe_brand'] in brands):
+                brands[player_object['shoe_brand']].append(player_object['rebounds_per_game'])
+            else:
+                 brands[player_object['shoe_brand']] = [player_object['rebounds_per_game']]
+    for brand in brands:
+        avg = sum(brands[brand]) / len(brands[brand])
+        print(f'{brand}: ', "{0:.2f}".format(avg))
+
+
+# Solution Branch from Github: Comment in both methods
+
+# def get_all_players():
+#   all_players = {}
+#   for team in ['home', 'away']:
+#     for player in game_dict()[team]['players']:
+#       all_players.update(
+#         {player['name']: {
+#           "name": player["name"],
+#           "number": player["number"],
+#           "position": player["position"],
+#           "points_per_game": player["points_per_game"],
+#           "rebounds_per_game": player["rebounds_per_game"],
+#           "assists_per_game": player["assists_per_game"],
+#           "steals_per_game": player["steals_per_game"],
+#           "blocks_per_game": player["blocks_per_game"],
+#           "career_points": player["career_points"],
+#           "age": player["age"],
+#           "height_inches": player["height_inches"],
+#           "shoe_brand": player["shoe_brand"]
+#           }
+#         }
+#       )
+#   return all_players
+
+
+# def average_rebounds_by_shoe_brand():
+#   shoe_dict = {}
+#   players = get_all_players()
+#   for player in players:
+#     brand = players[player]["shoe_brand"]
+#     rebounds = players[player]["rebounds_per_game"]
+#     if (brand in shoe_dict):
+#       shoe_dict[brand].append(rebounds)
+#     else:
+#       shoe_dict[brand] = [rebounds]
+#   for brand in shoe_dict:
+#     avg = sum(shoe_dict[brand]) / len(shoe_dict[brand])
+#     print(f'{brand}: ', "{0:.2f}".format(avg))
+       
+                
+    
+
+
+
+# Additional Practice
+# The ability to manipulate and access data from nested data structures is an important skill. If you'd like some more practice, try writing functions to return answers to the following questions:
+
+# Which player has the most career points?
+# Are there any jersey numbers that are worn by players on both teams?
+# Which player has the longest name?
+# Or come up with some ideas of your own!
